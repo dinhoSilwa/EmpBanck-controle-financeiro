@@ -1,9 +1,13 @@
 import "./App.css";
+import { Form } from "./components/Form/mainForm";
 
 function App() {
+  
   return (
     <>
-      <main>oi</main>
+
+    <Form />
+      
     </>
   );
 }
