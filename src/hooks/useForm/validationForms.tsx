@@ -13,32 +13,41 @@ export interface FinancialRecords {
 }
 
 export const useFinancialRecord = () => {
+  const api = useHTTPtransactions();
+  const queyKey = useQueryClient();
+  const QUERY_KEY = ["transaction-query"] as const;
+  const service = new TransactionService();
 
-  const api = useHTTPtransactions()
-  const queyKey = useQueryClient()
-  const QUERY_KEY = ['transaction-query'] as const;
-  const service = new TransactionService()
-
-  const { handleSubmit } = useForm<any>({
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    setError,
+    formState: { errors },
+  } = useForm<FinancialRecords>({
     resolver: yupResolver(FinancialRecordsSchema),
   });
 
   const mutation = useMutation<any, unknown, FinancialRecords, unknown>({
-    mutationFn : (data) => service.createTransaction(api, data),
-    onSuccess : () => {
-      queyKey.invalidateQueries({queryKey : QUERY_KEY})
+    mutationFn: (data) => service.createTransaction(api, data),
+    onSuccess: () => {
+      queyKey.invalidateQueries({ queryKey: QUERY_KEY });
+    },
+  });
 
-    }
-  })
+  const onsubmit = (data: FinancialRecords) => {
+    //mutation.mutate(data);
+    console.log(data)
+  };
 
-  
-const onsubmit = (data : FinancialRecords) =>{
-  mutation.mutate(data)
-}
-
-return{
-  handleSubmit : handleSubmit(onsubmit),
-  data : mutation.data
-}
-
+  return {
+    handleSubmit: handleSubmit(onsubmit),
+    data: mutation.data,
+    register,
+    watch,
+    errors,
+    setValue,
+    setError,
+  };
 };
