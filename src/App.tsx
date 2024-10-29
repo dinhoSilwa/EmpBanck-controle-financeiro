@@ -1,12 +1,17 @@
 import "./App.css";
-import { Form } from "./components/Form/mainForm";
+import { TransactionsList } from "./components/dashboard/list";
+import { Metrics } from "./components/dashboard/metrics";
 
 function App() {
+
   
   return (
     <>
 
-    <Form />
+    {/* <Form />  */}
+     <Metrics />
+    <TransactionsList />
+  
       
     </>
   );
