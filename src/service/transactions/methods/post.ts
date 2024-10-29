@@ -6,10 +6,10 @@ export const TransactionPostMethod = async (
   data: FinancialRecords
 ): Promise<void> => {
   try {
-    const response = await api.post("/api/transactions", data);
+    const response = await api.post("/transactions", data);
     return response.data;
   } catch (error) {
     console.error("Falha ao Realizar Registro", error);
-    return;
+    return 
   }
 };

@@ -37,13 +37,15 @@ export const useFinancialRecord = () => {
   });
 
   const onsubmit = (data: FinancialRecords) => {
-    //mutation.mutate(data);
+    mutation.mutate(data);
     console.log(data)
   };
 
   return {
     handleSubmit: handleSubmit(onsubmit),
     data: mutation.data,
+    isSuccessForm : mutation.isSuccess,
+    isLoadingForm : mutation.isPending,
     register,
     watch,
     errors,

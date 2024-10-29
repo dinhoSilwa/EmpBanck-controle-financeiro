@@ -1,11 +1,6 @@
 import { setup } from "./setup";
 
 export const useHTTPtransactions = () => {
-  const api = setup("/transactions");
-  return api;
-};
-
-export const useHTTPauth = () => {
-  const api = setup("/auth");
+  const api = setup("http://localhost:5000");
   return api;
 };
