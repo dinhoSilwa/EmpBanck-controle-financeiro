@@ -4,13 +4,8 @@ import { FinancialRecordsSchema } from "../../models/schemas/youpschemas";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useHTTPtransactions } from "../../service/usehttp";
 import { TransactionService } from "../../service/transactions/service";
+import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
 
-export interface FinancialRecords {
-  description: string;
-  amount: number;
-  category: string;
-  transactionType: "income" | "expense";
-}
 
 export const useFinancialRecord = () => {
   const api = useHTTPtransactions();
@@ -37,8 +32,8 @@ export const useFinancialRecord = () => {
   });
 
   const onsubmit = (data: FinancialRecords) => {
-    mutation.mutate(data);
-    console.log(data)
+    data.day = new Date().toLocaleDateString()
+    mutation.mutate(data)
   };
 
   return {
