@@ -41,7 +41,7 @@ export const Metrics = () => {
     if (data) {
       setMetrics(calculateMetrics(data));
     }
-  }, []);
+  }, [data]);
 
   return (
     <section>

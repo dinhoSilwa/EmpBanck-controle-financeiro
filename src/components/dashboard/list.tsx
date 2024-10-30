@@ -1,34 +1,48 @@
-import { useTransactions } from "../../hooks/getTransactions/useTransactionsList"
+import { useTransactions } from "../../hooks/getTransactions/useTransactionsList";
+import { TransactionStore } from "../../store/Transactions/transactionsStore";
+import { Search } from "./search";
 
-export const TransactionsList = () =>{
-  const {data} = useTransactions()
-  
-  return(
+export const TransactionsList = () => {
+  const { data } = useTransactions();
+  const {filteredTransactions} = TransactionStore()
+
+
+  return (
     <section>
+      <Search />
       <table>
-          <thead>
-            <tr>
+        <thead>
+          <tr>
             <th>Descrição</th>
             <th>Valor</th>
             <th>Categoria</th>
             <th>Data</th>
-            </tr>
-          </thead>
-          <tbody>
-          
-              {data && data.map(({description, amount, category, transactionType, day}, index) =>(
-              
-              <tr key={index}>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredTransactions &&
+            filteredTransactions?.map(
+              (
+                { description, amount, category, transactionType, day },
+                index
+              ) => (
+                <tr key={index}>
                   <td>{description}</td>
-                  <td> {transactionType === "expense" ? "-" : null} {amount.toLocaleString('pt-BR', {style : "currency", currency :"BRL"})}</td>
+                  <td>
+                    {" "}
+                    {transactionType === "expense" ? "-" : null}{" "}
+                    {amount.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </td>
                   <td>{category}</td>
                   <td>{day}</td>
-              </tr>
-              ))}
-          
-          </tbody>
-          
+                </tr>
+              )
+            )}
+        </tbody>
       </table>
     </section>
-  )
-}
+  );
+};

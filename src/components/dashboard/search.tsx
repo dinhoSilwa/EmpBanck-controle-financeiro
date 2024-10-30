@@ -1,13 +1,17 @@
+import { TransactionStore } from "../../store/Transactions/transactionsStore";
+
 export const Search = () => {
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-  };
+  const { setfilteredTransaction } = TransactionStore();
+
   return (
     <section>
       <input
         type="text"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e)}
-      /> 
+        placeholder="busca"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setfilteredTransaction(e.target.value)
+        }
+      />
     </section>
   );
 };
