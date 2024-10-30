@@ -20,7 +20,8 @@ export const TransactionsList = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredTransactions &&
+
+          {
             filteredTransactions?.map(
               (
                 { description, amount, category, transactionType, day },
