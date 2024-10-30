@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFinancialRecord } from "../../hooks/useForm/validationForms";
+import { handleAmountChange } from "./utils/formsHandlers";
+import { ModalManageStore } from "../../store/modalStore/modal";
 
 export const Form: React.FC = () => {
   const {
@@ -17,23 +19,6 @@ export const Form: React.FC = () => {
   const amount: number = watch("amount");
   const category: string = watch("category");
 
-  const handleAmountChange = (
-    eventInput: React.ChangeEvent<HTMLInputElement>
-  ): any => {
-    const { value } = eventInput.target;
-    const numericValue = value.replace(/\D/g, "");
-    const decimalValue = numericValue.replace(",", ".");
-    const formattedCurrency = (parseFloat(decimalValue) / 100).toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL",
-      }
-    );
-
-    return formattedCurrency;
-  };
-
   const submitForm = (e: any) => {
     e.preventDefault();
     const amoutToString = amount.toString();
@@ -48,8 +33,20 @@ export const Form: React.FC = () => {
     handleSubmit();
   };
 
+  const { closeModal } = ModalManageStore();
+
+  useEffect(() => {
+    if (isSuccessForm) {
+      closeModal("newTransaction");
+      return;
+    }
+  }, [isSuccessForm]);
+
   return (
-    <form onSubmit={(e) => submitForm(e)}>
+    <form onSubmit={(e) => submitForm(e)} style={{ background: "#fff" }}>
+      <div>
+        <span onClick={() => closeModal("newTransaction")}>Fechar</span>
+      </div>
       {isSuccessForm && <span>Dados Cadastrados com sucesso</span>}
 
       <input
@@ -68,6 +65,7 @@ export const Form: React.FC = () => {
         {...register("amount", {
           onChange: (eventInput: React.ChangeEvent<HTMLInputElement>) =>
             setValue("amount", handleAmountChange(eventInput)),
+          // exported function to the utils dir
         })}
       />
 

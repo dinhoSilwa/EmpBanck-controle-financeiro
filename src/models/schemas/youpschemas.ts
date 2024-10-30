@@ -5,9 +5,7 @@ export const FinancialRecordsSchema = yup.object().shape({
     .string()
     .max(25, "Limite de caracteres atingido")
     .required("A descrição é obrigatória"),
-    amount: yup
-    .number()
-    .positive("O valor precisa ser positivo")
+    amount: yup.string()
     .required("É obrigatório informar o valor"),
     category: yup.string().required("É obrigatório definir a categoria"),
   transactionType: yup
