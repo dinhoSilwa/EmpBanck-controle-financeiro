@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { TransactionService } from "../../service/transactions/service";
 import { useHTTPtransactions } from "../../service/usehttp";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
+import { TransactionStore } from "../../store/Transactions/transactionsStore";
 
 export const useTransactions = () => {
+  const { setTransactions } = TransactionStore();
   const QUERY_KEY = "get-transactions" as const;
 
   const DEFAULT_CONFIG = {
@@ -21,7 +23,13 @@ export const useTransactions = () => {
     queryFn: () => service.getAllTransactions(api),
     ...DEFAULT_CONFIG,
   });
- 
+
+  useEffect(() => {
+    if (data) {
+      setTransactions(data);
+    }
+  }, [data]);
+
   return {
     data,
     isLoading,
