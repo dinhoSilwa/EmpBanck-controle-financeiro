@@ -3,9 +3,10 @@ import { TransactionStore } from "../../store/Transactions/transactionsStore";
 import { Search } from "./search";
 
 export const TransactionsList = () => {
-  const { data } = useTransactions();
-  const {filteredTransactions} = TransactionStore()
-
+  const { filteredTransactions, transactions } = TransactionStore();
+  const data = filteredTransactions?.length
+    ? filteredTransactions
+    : transactions;
 
   return (
     <section>
@@ -20,28 +21,26 @@ export const TransactionsList = () => {
           </tr>
         </thead>
         <tbody>
-
-          {
-            filteredTransactions?.map(
-              (
-                { description, amount, category, transactionType, day },
-                index
-              ) => (
-                <tr key={index}>
-                  <td>{description}</td>
-                  <td>
-                    {" "}
-                    {transactionType === "expense" ? "-" : null}{" "}
-                    {amount.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </td>
-                  <td>{category}</td>
-                  <td>{day}</td>
-                </tr>
-              )
-            )}
+          {data?.map(
+            (
+              { description, amount, category, transactionType, day },
+              index
+            ) => (
+              <tr key={index}>
+                <td>{description}</td>
+                <td>
+                  {" "}
+                  {transactionType === "expense" ? "-" : null}{" "}
+                  {amount.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </td>
+                <td>{category}</td>
+                <td>{day}</td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </section>
