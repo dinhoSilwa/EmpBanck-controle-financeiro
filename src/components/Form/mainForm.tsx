@@ -27,21 +27,16 @@ export const Form: React.FC = () => {
   } = useFinancialRecord();
 
   const description: string = watch("description");
-  const amount: number = watch("amount");
+  const amount: any = watch("amount");
   const category: string = watch("category");
   const transactionType = watch("transactionType");
 
   const submitForm = (e: any) => {
     e.preventDefault();
-    const amountToString = amount.toString();
-    setValue(
-      "amount",
-      amountToString.replace("R$", "").replace(",", ".") as any
-    );
-    if (isNaN(amountToString as any)) {
-      setError("amount", { message: "" });
-    }
-
+    const amountToNumber = parseFloat(amount.replace("R$", "")
+    .replace(/\./g, '')
+    .replace(',', '.'))
+    setValue("amount", amountToNumber)
     handleSubmit();
   };
 
@@ -91,6 +86,7 @@ export const Form: React.FC = () => {
           htmlFor="value-input"
           className="font-medium text-primary/75 text-sm"
         >
+        esse é o amount : {amount}
           Valor
         </label>
         <input
@@ -104,6 +100,7 @@ export const Form: React.FC = () => {
               setValue("amount", handleAmountChange(eventInput)),
           })}
         />
+        {errors.amount && <span>{errors.amount.message}</span>}
       </fieldset>
 
       <fieldset className={fieldsetClasses}>
