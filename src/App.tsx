@@ -10,13 +10,13 @@ function App() {
   const { modals } = ModalManageStore();
 
   return (
-    <>
+    <main className="ml-auto mr-auto pt-8 flex flex-col items-center">
       {modals.newTransaction && <BackgroundModal children={<Form />} />}
 
       <Header />
       <Metrics />
       <TransactionsList />
-    </>
+    </main>
   );
 }
 
