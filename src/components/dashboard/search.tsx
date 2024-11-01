@@ -11,11 +11,11 @@ export const Search = () => {
   };
 
   return (
-    <section className=" w-full flex gap-4">
+    <section className=" flex gap-4 w-[82%] ml-auto mr-auto">
       <input
         type="text"
         placeholder="Busque uma Transação"
-        className="h-10 ring-1 ring-secondaryGray/30 rounded-md flex-1 px-4 outline-none focus:ring-secondary"
+        className="h-12 ring-1 ring-secondaryGray/30 rounded-md flex-1 px-4 outline-none focus:ring-secondary"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setcurrentTerm(e.target.value)
         }
@@ -23,7 +23,7 @@ export const Search = () => {
 
       <button
         onClick={handleSearch}
-        className="w-36  flex gap-2  items-center px-4 ring-1 ring-secondary h-10 rounded-md text-secondary transition-all duration-500 hover:bg-secondary hover:text-white"
+        className="w-36 h-12 flex gap-2  items-center px-4 ring-1 ring-secondary rounded-md text-secondary transition-all duration-500 hover:bg-secondary hover:text-white"
       >
         <SearchIcon />
         buscar
