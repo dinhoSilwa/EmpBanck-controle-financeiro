@@ -5,11 +5,30 @@ import { ModalManageStore } from "../../store/modalStore/modal";
 import { handleAmountChange } from "./utils/formsHandlers";
 import { RadioInput } from "./radioInput";
 
-const typeDetails = ["Alimentação", "Salário", "Transporte", "Aluguel"];
+const typeDetails = [
+  "Alimentação",
+  "Salário",
+  "Transporte",
+  "Aluguel",
+  "Combustível", // gastos específicos com combustível
+  "Educação Infantil", // despesas com creches e educação infantil
+  "Almoço Fora", // refeições em restaurantes ou lanchonetes
+  "Transporte Público", // despesas com ônibus, metrô, etc.
+  "Manutenção de Veículo", // custos com serviços e peças do carro
+  "Contas de Luz", // despesas específicas com energia elétrica
+  "Contas de Água", // despesas específicas com água
+  "Mensalidade Escolar", // mensalidade de escolas e universidades
+  "Entretenimento", // gastos com cinema, shows e eventos
+  "Assinaturas", // serviços de streaming ou revistas
+  "Material Escolar", // despesas com cadernos, livros e outros materiais
+  "Roupas de Inverno", // compras específicas de roupas de frio
+  "Outras"
+];
+
 const formContainerClasses =
   "max-w-[535px] h-[530px] ml-auto mr-auto mt-8 p-8 flex flex-col gap-3 bg-white font-sans rounded-xl";
 const inputBaseClasses =
-  "h-10 rounded-lg px-2 outline-none focus:ring-1 ring-1 placeholder:text-borderGray/40";
+  "h-10 rounded-lg px-2 outline-none focus:ring-1 ring-1 placeholder:text-secondaryGray/40";
 const fieldsetClasses = "flex flex-col justify-center space-y-2";
 const buttonClasses =
   "h-12 rounded-md bg-secondary text-white hover:bg-secondary/75";
@@ -33,10 +52,10 @@ export const Form: React.FC = () => {
 
   const submitForm = (e: any) => {
     e.preventDefault();
-    const amountToNumber = parseFloat(amount.replace("R$", "")
-    .replace(/\./g, '')
-    .replace(',', '.'))
-    setValue("amount", amountToNumber)
+    const amountToNumber = parseFloat(
+      amount.replace("R$", "").replace(/\./g, "").replace(",", ".")
+    );
+    setValue("amount", amountToNumber as number);
     handleSubmit();
   };
 
@@ -76,7 +95,7 @@ export const Form: React.FC = () => {
           placeholder="Insira o título da transação"
           value={description}
           {...register("description")}
-          className={`${inputBaseClasses} focus:ring-secondary ring-borderGray/20`}
+          className={`${inputBaseClasses} focus:ring-secondary ring-secondaryGray/20`}
         />
         {errors.description && <span>{errors.description.message}</span>}
       </fieldset>
@@ -86,7 +105,6 @@ export const Form: React.FC = () => {
           htmlFor="value-input"
           className="font-medium text-primary/75 text-sm"
         >
-        esse é o amount : {amount}
           Valor
         </label>
         <input
@@ -94,7 +112,7 @@ export const Form: React.FC = () => {
           type="text"
           placeholder="Valor"
           value={isNaN(amount) ? amount : amount || ""}
-          className={`${inputBaseClasses} focus:ring-secondary ring-borderGray/20`}
+          className={`${inputBaseClasses} focus:ring-secondary ring-secondaryGray/20`}
           {...register("amount", {
             onChange: (eventInput: React.ChangeEvent<HTMLInputElement>) =>
               setValue("amount", handleAmountChange(eventInput)),
@@ -114,7 +132,7 @@ export const Form: React.FC = () => {
           id="category-input"
           {...register("category")}
           value={category}
-          className="px-2 h-12 rounded-md outline-none ring-1 ring-borderGray/20"
+          className="px-2 h-12 rounded-md outline-none ring-1 ring-secondaryGray/20"
         >
           {typeDetails.map((item, index) => (
             <option value={item} key={index} className="py-2 h-10">
