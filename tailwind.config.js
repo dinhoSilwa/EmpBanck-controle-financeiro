@@ -14,8 +14,8 @@ export default {
         "secondary": "#60CFFA",
         "system-success": "#00B37E",
         "system-warnig": "#F75A68",
-        "primaryGray" : "#CED4DA",
-        "borderGray" : "#212529"
+        "primaryGray": "#CED4DA",
+        "secondaryGray": "#212529"
       }
     },
   },
