@@ -9,7 +9,7 @@ export const TransactionsList = () => {
     : transactions;
 
   return (
-    <section>
+    <section className="w-[80%]">
       <Search />
       <table>
         <thead>

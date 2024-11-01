@@ -1,17 +1,33 @@
+import { useState } from "react";
 import { TransactionStore } from "../../store/Transactions/transactionsStore";
+import { SearchIcon } from "lucide-react";
 
 export const Search = () => {
   const { setfilteredTransaction } = TransactionStore();
+  const [currentTerm, setcurrentTerm] = useState("");
+
+  const handleSearch = () => {
+    setfilteredTransaction(currentTerm);
+  };
 
   return (
-    <section>
+    <section className=" w-full flex gap-4">
       <input
         type="text"
-        placeholder="busca"
+        placeholder="Busque uma Transação"
+        className="h-10 ring-1 ring-secondaryGray/30 rounded-md flex-1 px-4 outline-none focus:ring-secondary"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setfilteredTransaction(e.target.value)
+          setcurrentTerm(e.target.value)
         }
       />
+
+      <button
+        onClick={handleSearch}
+        className="w-36  flex gap-2  items-center px-4 ring-1 ring-secondary h-10 rounded-md text-secondary transition-all duration-500 hover:bg-secondary hover:text-white"
+      >
+        <SearchIcon />
+        buscar
+      </button>
     </section>
   );
 };
