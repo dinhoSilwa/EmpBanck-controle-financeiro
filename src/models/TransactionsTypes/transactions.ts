@@ -1,6 +1,6 @@
 export interface FinancialRecords {
   description: string;
-  amount: any;
+  amount: number;
   category: string;
   transactionType: "income" | "expense";
   day ?: any
