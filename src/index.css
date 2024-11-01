@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Para esconder a barra de rolagem horizontal e vertical */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer e Edge Legacy */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e versões mais novas do Edge */
+}

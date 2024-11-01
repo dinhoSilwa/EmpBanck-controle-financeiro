@@ -17,7 +17,7 @@ export const MetricsCards = ({
   return (
     <li
       {...props}
-      className={`w-[352px] h-[138px] px-4 flex flex-col justify-center rounded-xl ring-1 ring-secondaryGray/50 shadow ${isTotalCard ? "bg-secondaryGray text-white" : "bg-white hover:bg-gray-100"}`}
+      className={`w-[352px] h-[138px] px-4 flex flex-col justify-center rounded-xl ring-1 ring-secondaryGray/30 shadow ${isTotalCard ? "bg-secondaryGray text-white" : "bg-white hover:bg-gray-100"}`}
     >
       <div className="h-10 flex items-center justify-between">
         <p className="text-md">{title}</p> <figure>{icon}</figure>

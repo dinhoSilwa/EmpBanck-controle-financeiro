@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTransactions } from "../../hooks/getTransactions/useTransactionsList";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
-import {  CircleArrowDown, CircleArrowUp, DollarSign } from "lucide-react";
+import { CircleArrowDown, CircleArrowUp, DollarSign } from "lucide-react";
 import { TransactionStore } from "../../store/Transactions/transactionsStore";
 import { MetricsCards } from "./metricsCard";
 
@@ -13,7 +13,7 @@ interface MetricsProps {
 
 export const Metrics = () => {
   const { data } = useTransactions();
-  const {transactions} = TransactionStore()
+  const { transactions } = TransactionStore();
 
   const [metrics, setMetrics] = useState<MetricsProps>({
     income: 0,
@@ -22,24 +22,23 @@ export const Metrics = () => {
   });
 
   const calculateMetrics = (transactions: FinancialRecords[]) => {
-
     // const parseAmount = (amount : string | number) =>{
     //   return parseFloat(amount.toString().replace(/\s/g, '').replace(".","").replace(',','.'))
     // }
-    
+
     const incomeTotal =
-    transactions
+      transactions
         .filter((item) => item.transactionType == "income")
         .reduce((acc, item) => acc + item.amount, 0) || 0;
-        console.log(incomeTotal)
+    console.log(incomeTotal);
 
     const expenseTotal =
-    transactions
+      transactions
         ?.filter((item) => item.transactionType == "expense")
         .reduce((acc, item) => acc + item.amount, 0) || 0;
 
     const totalTransaction =
-    transactions?.reduce((acc, item) => acc + item.amount, 0) || 0;
+      transactions?.reduce((acc, item) => acc + item.amount, 0) || 0;
 
     return {
       income: incomeTotal,
@@ -49,21 +48,30 @@ export const Metrics = () => {
   };
 
   useEffect(() => {
-    
     if (transactions) {
       setMetrics(calculateMetrics(transactions));
     }
   }, [transactions]);
 
   return (
-    <section className=" w-[80%]">
+    <section className="w-[82%] ml-auto mr-auto">
       <ul className="flex justify-between font-sans flex-wrap">
-
-    <MetricsCards title="Entrada" icon={<CircleArrowUp className="text-system-success" />} status={metrics.income} />
-    <MetricsCards title="Saida" icon={<CircleArrowDown className="text-system-warnig" />} status={metrics.expense} />
-    <MetricsCards title="Total" icon={<DollarSign className="text-green-600" />} status={metrics.total} isTotalCard={true} />
-
- 
+        <MetricsCards
+          title="Entrada"
+          icon={<CircleArrowUp className="text-system-success" />}
+          status={metrics.income}
+        />
+        <MetricsCards
+          title="Saida"
+          icon={<CircleArrowDown className="text-system-warnig" />}
+          status={metrics.expense}
+        />
+        <MetricsCards
+          title="Total"
+          icon={<DollarSign className="text-green-600" />}
+          status={metrics.total}
+          isTotalCard={true}
+        />
       </ul>
     </section>
   );
