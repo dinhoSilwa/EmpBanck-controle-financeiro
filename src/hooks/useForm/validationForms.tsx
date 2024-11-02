@@ -24,7 +24,7 @@ export const useFinancialRecord = () => {
     setError,
     formState: { errors },
   } = useForm<FinancialRecords>({
-    resolver: yupResolver(FinancialRecordsSchema),
+    resolver: yupResolver<any>(FinancialRecordsSchema),
   });
 
   const mutation = useMutation<any, unknown, FinancialRecords, unknown>({
