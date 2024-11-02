@@ -26,7 +26,7 @@ export const TransactionsList = () => {
               <td className="flex-1 flex gap-4 items-center">
                 <div
                   className={` w-4 h-4 rounded-full ${
-                    transactionType == "expense"
+                    transactionType !== "expense"
                       ? "bg-system-success"
                       : "bg-system-warnig"
                   }`}
