@@ -1,7 +1,7 @@
-import { TransactionStore } from "../../store/Transactions/transactionsStore";
+import { transactionStore } from "../../store/Transactions/transactionsStore";
 
 export const TransactionsList = () => {
-  const { filteredTransactions, transactions } = TransactionStore();
+  const { filteredTransactions, transactions } = transactionStore();
   const data = filteredTransactions?.length
     ? filteredTransactions
     : transactions;

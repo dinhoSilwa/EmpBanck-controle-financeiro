@@ -7,7 +7,7 @@ interface ModalStoreProps {
   ToggleModal: (modalName: string) => void;
 }
 
-export const ModalManageStore = create<ModalStoreProps>()((set) => ({
+export const modalManageStore = create<ModalStoreProps>()((set) => ({
   modals: {},
   openModal: (modalKey: string) =>
     set((state) => ({

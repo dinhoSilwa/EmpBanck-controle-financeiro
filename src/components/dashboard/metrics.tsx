@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTransactions } from "../../hooks/getTransactions/useTransactionsList";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
 import { CircleArrowDown, CircleArrowUp, DollarSign } from "lucide-react";
-import { TransactionStore } from "../../store/Transactions/transactionsStore";
+import { transactionStore } from "../../store/Transactions/transactionsStore";
 import { MetricsCards } from "./metricsCard";
 
 interface MetricsProps {
@@ -13,7 +13,7 @@ interface MetricsProps {
 
 export const Metrics = () => {
   const { data } = useTransactions();
-  const { transactions } = TransactionStore();
+  const { transactions } = transactionStore();
 
   const [metrics, setMetrics] = useState<MetricsProps>({
     income: 0,

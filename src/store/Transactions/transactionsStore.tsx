@@ -8,7 +8,7 @@ interface TransactionStoreProps {
   setfilteredTransaction: (termOfSearch: string) => void;
 }
 
-export const TransactionStore = create<TransactionStoreProps>()((set) => ({
+export const transactionStore = create<TransactionStoreProps>()((set) => ({
   transactions: null,
   filteredTransactions: null,
   setTransactions: (data: FinancialRecords[]) => set({ transactions: data }),
@@ -23,5 +23,4 @@ export const TransactionStore = create<TransactionStoreProps>()((set) => ({
         ),
       };
     }),
-    
 }));
