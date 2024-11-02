@@ -1,7 +1,7 @@
 # Commit Changes
 ## Commits
 
-28/10/2014
+# 28/10/2014
 1. **Initial Project Setup**: 
    - Implemented the foundational configurations required to start the project, establishing a solid base for development.
 
@@ -9,7 +9,7 @@
    - Set up import aliases for the components folder, simplifying and streamlining component imports throughout the project.
 
 
-29/10/2024
+# 29/10/2024
 1. **TanStack Query Management Service**: 
    - Created a service to manage queries with TanStack, enhancing data fetching capabilities.
 
@@ -58,3 +58,7 @@ These changes enhance the application's functionality, improve user interaction,
 5. **feat(logo)**: Add logo for the system  
    Integrates a new logo into the system, contributing to branding and user interface improvement.
 
+
+# 30/10/2024
+
+1. Montar o componente do Header com botão de adicionar operação

@@ -1,9 +1,13 @@
 import type { AxiosInstance } from "axios";
 import type { FinancialRecords } from "../../../models/TransactionsTypes/transactions";
 
-export const TransactionGetMethods = async (
+export const getFinancialRecords = async (
   api: AxiosInstance
 ): Promise<FinancialRecords[]> => {
-  const response = await api("/transactions");
-  return response.data;
+  try {
+    const response = await api<FinancialRecords[]>("/transactions");
+    return response.data;
+  } catch (error) {
+    throw Error;
+  }
 };

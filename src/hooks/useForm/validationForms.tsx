@@ -5,9 +5,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useHTTPtransactions } from "../../service/usehttp";
 import { TransactionService } from "../../service/transactions/service";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
+import { useTransactions } from "../getTransactions/useTransactionsList";
 
 
 export const useFinancialRecord = () => {
+
+  const {refetch} =useTransactions()
   const api = useHTTPtransactions();
   const queyKey = useQueryClient();
   const QUERY_KEY = ["transaction-query"] as const;
@@ -28,12 +31,14 @@ export const useFinancialRecord = () => {
     mutationFn: (data) => service.createTransaction(api, data),
     onSuccess: () => {
       queyKey.invalidateQueries({ queryKey: QUERY_KEY });
+      refetch()
     },
   });
 
   const onsubmit = (data: FinancialRecords) => {
     data.day = new Date().toLocaleDateString()
     mutation.mutate(data)
+    console.log("isso que é enviado", data.amount)
   };
 
   return {

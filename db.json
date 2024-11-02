@@ -1,0 +1,20 @@
+{
+  "transactions": [
+    {
+      "id": "a5a6",
+      "description": "tenis novos",
+      "amount": 200,
+      "category": "Outras",
+      "transactionType": "expense",
+      "day": "01/11/2024"
+    },
+    {
+      "id": "9ef9",
+      "description": "Iphone 12",
+      "amount": 290.9,
+      "category": "Entretenimento",
+      "transactionType": "expense",
+      "day": "01/11/2024"
+    }
+  ]
+}

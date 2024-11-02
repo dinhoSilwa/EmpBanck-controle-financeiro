@@ -1,7 +1,7 @@
 import type { AxiosInstance } from "axios";
 import type { FinancialRecords } from "../../hooks/useForm/validationForms";
 import { TransactionPostMethod } from "./methods/post";
-import { TransactionGetMethods } from "./methods/get";
+import { getFinancialRecords } from "./methods/get";
 
 export class TransactionService {
   createTransaction = async (
@@ -11,5 +11,5 @@ export class TransactionService {
 
   getAllTransactions = async (
     api: AxiosInstance
-  ): Promise<FinancialRecords[]> => await TransactionGetMethods(api);
+  ): Promise<FinancialRecords[]> => await getFinancialRecords(api);
 }

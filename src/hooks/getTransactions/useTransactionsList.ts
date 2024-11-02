@@ -18,7 +18,7 @@ export const useTransactions = () => {
   const api = useHTTPtransactions();
   const service = useMemo(() => new TransactionService(), []);
 
-  const { data, isLoading, isError } = useQuery<FinancialRecords[], Error>({
+  const { data, isLoading, isError, refetch} = useQuery<FinancialRecords[], Error>({
     queryKey: [QUERY_KEY],
     queryFn: () => service.getAllTransactions(api),
     ...DEFAULT_CONFIG,
@@ -26,6 +26,7 @@ export const useTransactions = () => {
 
   useEffect(() => {
     if (data) {
+
       setTransactions(data);
     }
   }, [data]);
@@ -34,5 +35,6 @@ export const useTransactions = () => {
     data,
     isLoading,
     isError,
+    refetch
   };
 };
