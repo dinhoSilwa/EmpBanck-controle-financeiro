@@ -1,4 +1,4 @@
-import conpanyLogo from "../../../public/logo horizontal.png";
+import conpanyLogo from "../../assets/logo horizontal.png"
 import { ModalManageStore } from "../../store/modalStore/modal";
 
 const buttonClasses =
