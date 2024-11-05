@@ -40,7 +40,6 @@ export const Form: React.FC = () => {
     watch,
     errors,
     setValue,
-    setError,
     isSuccessForm,
     isLoadingForm,
   } = useFinancialRecord();
