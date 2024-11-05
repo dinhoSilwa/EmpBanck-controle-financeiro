@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTransactions } from "../../hooks/getTransactions/useTransactionsList";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
 import { CircleArrowDown, CircleArrowUp, DollarSign } from "lucide-react";
 import { transactionStore } from "../../store/Transactions/transactionsStore";
@@ -12,7 +11,6 @@ interface MetricsProps {
 }
 
 export const Metrics = () => {
-  const { data } = useTransactions();
   const { transactions } = transactionStore();
 
   const [metrics, setMetrics] = useState<MetricsProps>({
@@ -22,15 +20,10 @@ export const Metrics = () => {
   });
 
   const calculateMetrics = (transactions: FinancialRecords[]) => {
-    // const parseAmount = (amount : string | number) =>{
-    //   return parseFloat(amount.toString().replace(/\s/g, '').replace(".","").replace(',','.'))
-    // }
-
     const incomeTotal =
       transactions
         .filter((item) => item.transactionType == "income")
         .reduce((acc, item) => acc + item.amount, 0) || 0;
-    console.log(incomeTotal);
 
     const expenseTotal =
       transactions
