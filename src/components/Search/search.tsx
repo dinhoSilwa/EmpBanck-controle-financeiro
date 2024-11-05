@@ -1,20 +1,24 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { transactionStore } from "../../store/Transactions/transactionsStore";
 import { SearchIcon } from "lucide-react";
-import { savedTermStore } from "../../store/savedSeachs/savedSearchs";
+//import { savedTermStore } from "../../store/savedSeachs/savedSearchs";
 
 export const Search = () => {
   const inputRef = useRef(null); // Cria a referência para o input
-  const [isActiveSearch, setisActiveSearch] = useState(false);
+  //const [isActiveSearch, setisActiveSearch] = useState(false);
   const { setfilteredTransaction } = transactionStore();
   const [currentTerm, setcurrentTerm] = useState("");
 
   const handleSearch = () => {
     setfilteredTransaction(currentTerm);
-    setSaved(currentTerm);
+    //  setSaved(currentTerm);
   };
 
-  const { saved, setSaved, delSaved } = savedTermStore();
+  useEffect(() => {
+    if (!currentTerm.length) setfilteredTransaction("");
+  }, [currentTerm]);
+
+  // const { saved, setSaved, delSaved } = savedTermStore();
 
   return (
     <section className=" flex gap-4 w-[82%] ml-auto mr-auto relative">
@@ -24,8 +28,8 @@ export const Search = () => {
         value={currentTerm}
         ref={inputRef}
         className="h-12 ring-1 ring-secondaryGray/30 rounded-md flex-1 px-4 outline-none focus:ring-secondary"
-        onFocus={() => setisActiveSearch(true)}
-        onBlur={() =>setisActiveSearch(false)}
+        // onFocus={() => setisActiveSearch(true)}
+        // onBlur={() =>setTimeout(() =>{setisActiveSearch(false)},1000)}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setcurrentTerm(e.target.value);
         }}
@@ -38,7 +42,7 @@ export const Search = () => {
         buscar
       </button>
 
-      {isActiveSearch ? (
+      {/* {isActiveSearch ? (
         <div className="absolute top-14 flex gap-2">
           {saved.map((item, index) => (
             <div
@@ -60,7 +64,7 @@ export const Search = () => {
             </div>
           ))}
         </div>
-      ) : null}
+      ) : null} */}
     </section>
   );
 };
