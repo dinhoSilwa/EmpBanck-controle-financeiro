@@ -15,6 +15,14 @@
       "category": "Entretenimento",
       "transactionType": "expense",
       "day": "01/11/2024"
+    },
+    {
+      "id": "11d3",
+      "description": "Salario ",
+      "amount": 4899.99,
+      "category": "Salário",
+      "transactionType": "income",
+      "day": "02/11/2024"
     }
   ]
 }

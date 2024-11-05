@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useFinancialRecord } from "../../hooks/useForm/validationForms";
 import { X } from "lucide-react";
-import { ModalManageStore } from "../../store/modalStore/modal";
+import { modalManageStore } from "../../store/modalStore/modal";
 import { handleAmountChange } from "./utils/formsHandlers";
 import { RadioInput } from "./radioInput";
 
@@ -22,7 +22,7 @@ const typeDetails = [
   "Assinaturas", // serviços de streaming ou revistas
   "Material Escolar", // despesas com cadernos, livros e outros materiais
   "Roupas de Inverno", // compras específicas de roupas de frio
-  "Outras"
+  "Outras",
 ];
 
 const formContainerClasses =
@@ -40,7 +40,6 @@ export const Form: React.FC = () => {
     watch,
     errors,
     setValue,
-    setError,
     isSuccessForm,
     isLoadingForm,
   } = useFinancialRecord();
@@ -59,7 +58,7 @@ export const Form: React.FC = () => {
     handleSubmit();
   };
 
-  const { closeModal } = ModalManageStore();
+  const { closeModal } = modalManageStore();
 
   useEffect(() => {
     if (isSuccessForm) {

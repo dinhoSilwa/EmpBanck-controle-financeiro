@@ -3,10 +3,10 @@ import { useEffect, useMemo } from "react";
 import { TransactionService } from "../../service/transactions/service";
 import { useHTTPtransactions } from "../../service/usehttp";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
-import { TransactionStore } from "../../store/Transactions/transactionsStore";
+import { transactionStore } from "../../store/Transactions/transactionsStore";
 
 export const useTransactions = () => {
-  const { setTransactions } = TransactionStore();
+  const { setTransactions } = transactionStore();
   const QUERY_KEY = "get-transactions" as const;
 
   const DEFAULT_CONFIG = {
@@ -18,7 +18,10 @@ export const useTransactions = () => {
   const api = useHTTPtransactions();
   const service = useMemo(() => new TransactionService(), []);
 
-  const { data, isLoading, isError, refetch} = useQuery<FinancialRecords[], Error>({
+  const { data, isLoading, isError, refetch } = useQuery<
+    FinancialRecords[],
+    Error
+  >({
     queryKey: [QUERY_KEY],
     queryFn: () => service.getAllTransactions(api),
     ...DEFAULT_CONFIG,
@@ -26,7 +29,6 @@ export const useTransactions = () => {
 
   useEffect(() => {
     if (data) {
-
       setTransactions(data);
     }
   }, [data]);
@@ -35,6 +37,6 @@ export const useTransactions = () => {
     data,
     isLoading,
     isError,
-    refetch
+    refetch,
   };
 };
