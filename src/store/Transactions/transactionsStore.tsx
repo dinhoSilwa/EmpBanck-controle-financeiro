@@ -15,7 +15,7 @@ export const transactionStore = create<TransactionStoreProps>()((set) => ({
   setfilteredTransaction: (termOfSearch: string) =>
     set((state) => {
       if (termOfSearch.length <= 0) {
-        return { filteredTransactions: state.transactions };
+        return { filteredTransactions: null};
       }
       return {
         filteredTransactions: state.transactions?.filter((items) =>
