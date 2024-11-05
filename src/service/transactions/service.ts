@@ -1,5 +1,5 @@
 import type { AxiosInstance } from "axios";
-import type { FinancialRecords } from "../../hooks/useForm/validationForms";
+import type { FinancialRecords } from "./../../models/TransactionsTypes/transactions";
 import { TransactionPostMethod } from "./methods/post";
 import { getFinancialRecords } from "./methods/get";
 
