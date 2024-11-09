@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { FinancialRecords } from "../../models/TransactionsTypes/transactions";
 import { CircleArrowDown, CircleArrowUp, DollarSign } from "lucide-react";
 import { transactionStore } from "../../store/Transactions/transactionsStore";
@@ -10,41 +10,42 @@ interface MetricsProps {
   total: number;
 }
 
-export const Metrics = () => {
+export const Metrics = React.memo(() => {
   const { transactions } = transactionStore();
 
-  const [metrics, setMetrics] = useState<MetricsProps>({
-    income: 0,
-    expense: 0,
-    total: 0,
-  });
+  const calculateMetrics = useCallback(
+    (transactions: FinancialRecords[]): MetricsProps => {
+      if (!transactions || transactions.length === 0) {
+        return {
+          income: 0,
+          expense: 0,
+          total: 0,
+        };
+      }
+      const income =
+        transactions
+          .filter((item) => item.transactionType == "income")
+          .reduce((acc, item) => acc + item.amount, 0) || 0;
 
-  const calculateMetrics = (transactions: FinancialRecords[]) => {
-    const incomeTotal =
-      transactions
-        .filter((item) => item.transactionType == "income")
-        .reduce((acc, item) => acc + item.amount, 0) || 0;
+      const expense =
+        transactions
+          ?.filter((item) => item.transactionType == "expense")
+          .reduce((acc, item) => acc + item.amount, 0) || 0;
 
-    const expenseTotal =
-      transactions
-        ?.filter((item) => item.transactionType == "expense")
-        .reduce((acc, item) => acc + item.amount, 0) || 0;
+      const total = income + expense;
 
-    const totalTransaction =
-      transactions?.reduce((acc, item) => acc + item.amount, 0) || 0;
-
-    return {
-      income: incomeTotal,
-      expense: expenseTotal,
-      total: totalTransaction,
-    };
-  };
-
-  useEffect(() => {
-    if (transactions) {
-      setMetrics(calculateMetrics(transactions));
-    }
-  }, [transactions]);
+      return {
+        income: income,
+        expense: expense,
+        total: total,
+      };
+    },
+    []
+  );
+  const metrics = useMemo(
+    () => calculateMetrics(transactions as FinancialRecords[]),
+    [transactions, calculateMetrics]
+  );
 
   return (
     <section className="w-[82%] ml-auto mr-auto">
@@ -52,20 +53,20 @@ export const Metrics = () => {
         <MetricsCards
           title="Entrada"
           icon={<CircleArrowUp className="text-system-success" />}
-          status={metrics.income}
+          status={metrics?.income}
         />
         <MetricsCards
           title="Saida"
           icon={<CircleArrowDown className="text-system-warnig" />}
-          status={metrics.expense}
+          status={metrics?.expense}
         />
         <MetricsCards
           title="Total"
           icon={<DollarSign className="text-green-600" />}
-          status={metrics.total}
+          status={metrics?.total}
           isTotalCard={true}
         />
       </ul>
     </section>
   );
-};
+});

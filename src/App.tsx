@@ -1,13 +1,14 @@
+import React from "react";
 import "./App.css";
-import { TransactionsList } from "./components/Dashboard/list";
-import { Metrics } from "./components/Dashboard/metrics";
+import { Metrics } from "./components/dashboard/metrics";
 import { Search } from "./components/Search/search";
-import { Form } from "./components/Form/mainForm";
-import { BackgroundModal } from "./components/GlobalModal/modal";
+import { Form } from "./components/form/mainForm";
+import { BackgroundModal } from "./components/globalModal/Modal";
 import { Header } from "./components/Header/header";
 import { modalManageStore } from "./store/modalStore/modal";
+import { TransactionsList } from "./components/dashboard/List";
 
-function App() {
+export const App = () => {
   const { modals } = modalManageStore();
 
   return (
@@ -19,6 +20,6 @@ function App() {
       <TransactionsList />
     </main>
   );
-}
+};
 
-export default App;
+export default React.memo(App);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useFinancialRecord } from "../../hooks/useForm/validationForms";
 import { X } from "lucide-react";
 import { modalManageStore } from "../../store/modalStore/modal";
@@ -33,7 +33,7 @@ const fieldsetClasses = "flex flex-col justify-center space-y-2";
 const buttonClasses =
   "h-12 rounded-md bg-secondary text-white hover:bg-secondary/75";
 
-export const Form: React.FC = () => {
+export const Form = React.memo(() => {
   const {
     handleSubmit,
     register,
@@ -49,14 +49,14 @@ export const Form: React.FC = () => {
   const category: string = watch("category");
   const transactionType = watch("transactionType");
 
-  const submitForm = (e: any) => {
+  const submitForm = useCallback((e: any) => {
     e.preventDefault();
     const amountToNumber = parseFloat(
       amount.replace("R$", "").replace(/\./g, "").replace(",", ".")
     );
     setValue("amount", amountToNumber as number);
     handleSubmit();
-  };
+  }, [amount, handleSubmit, setValue])
 
   const { closeModal } = modalManageStore();
 
@@ -162,4 +162,4 @@ export const Form: React.FC = () => {
       </button>
     </form>
   );
-};
+});

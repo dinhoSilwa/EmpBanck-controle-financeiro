@@ -1,25 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { useTransactions } from "../../hooks/getTransactions/useTransactionsList";
 import { transactionStore } from "../../store/Transactions/transactionsStore";
-import { FinancialRecords } from "../../models/TransactionsTypes/transactions";
 
-export const TransactionsList = () => {
+export const TransactionsList = React.memo(() => {
   const { data, isLoading } = useTransactions();
   const { filteredTransactions, transactions } = transactionStore();
-  const [dataTable, setDataTable] = useState<FinancialRecords[] | null>(
-    transactions
-  );
 
-  useEffect(() => {
-    if (filteredTransactions === null) {
-      setDataTable(transactions);
-    } else {
-      setDataTable(filteredTransactions);
-    }
+  const dataTable = useMemo(() => {
+    return filteredTransactions ?? transactions;
   }, [filteredTransactions, transactions, data]);
 
   return (
     <section>
+      {isLoading && <>carregando...</>}
+
       <table className="w-[82%] ml-auto mr-auto flex flex-col h-[700px] overflow-y-scroll">
         <thead>
           <tr className="flex w-full justify-around sr-only">
@@ -30,7 +24,6 @@ export const TransactionsList = () => {
           </tr>
         </thead>
         <tbody className="flex flex-col gap-4 pt-4">
-          {isLoading && <span>carregando...</span>}
           {dataTable?.map(
             (
               { description, amount, category, transactionType, day },
@@ -67,4 +60,4 @@ export const TransactionsList = () => {
       </table>
     </section>
   );
-};
+});
