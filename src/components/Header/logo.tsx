@@ -1,5 +1,5 @@
 import React from "react";
-import companyLogo from "../../assets/logo horizontal.png";
+import companyLogo from "../../assets/logo-h.png";
 
 export const Logo = React.memo(() => {
   return (
